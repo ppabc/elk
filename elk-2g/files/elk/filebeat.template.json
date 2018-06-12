@@ -1,5 +1,5 @@
 {
-  "template": "filebeat-*",
+  "template": "logstash-*",
   "settings": {
      "index.refresh_interval": "5s"
   },
