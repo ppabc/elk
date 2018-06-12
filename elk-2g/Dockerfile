@@ -1,8 +1,10 @@
 FROM joshdev/alpine-oraclejre8
 
 # adding elk username because elasticsearch can not run as root anymore
-RUN addgroup -g 1000 elk
-RUN adduser -G elk elk -D -h /opt
+        RUN set -x ; \
+        addgroup -g 10010 elk ; \
+        adduser -S -D -H -h /dev/null -s /sbin/nologin -G elk -u 10010 elk ;\
+        echo '%elk ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # set env variables
 ENV ELK_VERSION  5.6.9

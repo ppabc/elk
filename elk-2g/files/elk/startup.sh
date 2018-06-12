@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sed -i "s/Xms1g/Xms512m/g" /opt/elasticsearch/config/jvm.options
-sed -i "s/Xmx1g/Xmx512m/g" /opt/elasticsearch/config/jvm.options
+sed -i "s/Xms2g/Xms512m/g" /opt/elasticsearch/config/jvm.options
+sed -i "s/Xmx2g/Xmx512m/g" /opt/elasticsearch/config/jvm.options
 sed -i "s/Xms1g/Xms512m/g" /opt/logstash/config/jvm.options
 sed -i "s/Xmx1g/Xmx512m/g" /opt/logstash/config/jvm.options
 
