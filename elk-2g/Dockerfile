@@ -13,6 +13,7 @@ ENV KIBANA_URL   https://artifacts.elastic.co/downloads/kibana/kibana-$ELK_VERSI
 RUN apk update \
     && apk upgrade \
     && apk add nano curl bash sudo openssl libstdc++ \
+    && echo '%elk ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
     && sed -i 's/dev\/random/dev\/urandom/g' /usr/lib/jvm/jre/jre/lib/security/java.security
 
 USER elk
@@ -29,7 +30,6 @@ RUN curl -o /tmp/elastic.tgz $ELASTIC_URL \
     && ln -s elasticsearch-* elasticsearch \
     && echo 'network.host: 0.0.0.0' >>  /opt/elasticsearch/config/elasticsearch.yml \
     && echo 'server.host: "0.0.0.0"' >> /opt/kibana/config/kibana.yml \
-    && echo '%elk ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
     && rm -rf /tmp/*.tgz
 RUN mkdir -p /opt/ssl /opt/logstash/config/conf.d 
 
