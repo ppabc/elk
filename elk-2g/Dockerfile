@@ -1,4 +1,4 @@
-FROM aqzt/docker-alpine:jdk8o
+FROM aqzt/docker-alpine:oraclejdk8
 
 # adding elk username because elasticsearch can not run as root anymore
 RUN addgroup -g 1000 elk
