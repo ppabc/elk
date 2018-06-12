@@ -12,7 +12,7 @@ ENV KIBANA_URL   https://artifacts.elastic.co/downloads/kibana/kibana-$ELK_VERSI
 
 RUN apk update \
     && apk upgrade \
-    && apk add nano curl bash openssl libstdc++ \
+    && apk add nano curl bash sudo openssl libstdc++ \
     && sed -i 's/dev\/random/dev\/urandom/g' /usr/lib/jvm/jre/jre/lib/security/java.security
 
 USER elk
@@ -35,4 +35,4 @@ ADD files /
 
 EXPOSE 9200 9300 5601 5044
 
-ENTRYPOINT "/startup.sh"
+ENTRYPOINT "/elk/startup.sh"
