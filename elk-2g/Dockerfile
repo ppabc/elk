@@ -1,10 +1,8 @@
 FROM joshdev/alpine-oraclejre8
 
 # adding elk username because elasticsearch can not run as root anymore
-        RUN set -x ; \
-        addgroup -g 10010 elk ; \
-        adduser -S -D -H -h /dev/null -s /sbin/nologin -G elk -u 10010 elk ;\
-        echo '%elk ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN addgroup -g 1000 elk
+RUN adduser -G elk elk -D -h /opt
 
 # set env variables
 ENV ELK_VERSION  5.6.9
@@ -31,6 +29,7 @@ RUN curl -o /tmp/elastic.tgz $ELASTIC_URL \
     && ln -s elasticsearch-* elasticsearch \
     && echo 'network.host: 0.0.0.0' >>  /opt/elasticsearch/config/elasticsearch.yml \
     && echo 'server.host: "0.0.0.0"' >> /opt/kibana/config/kibana.yml \
+    && echo '%elk ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
     && rm -rf /tmp/*.tgz
 RUN mkdir -p /opt/ssl /opt/logstash/config/conf.d 
 
