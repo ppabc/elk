@@ -20,6 +20,8 @@ WORKDIR /opt
 RUN curl -o /tmp/logstash.tgz $LOGSTASH_URL \
     && tar -xzf /tmp/logstash.tgz -C /opt \
     && ln -s logstash-* logstash \
+    && /opt/logstash/bin/logstash-plugin  install logstash-codec-netflow \
+    && /opt/logstash/bin/logstash-plugin  install logstash-filter-ruby \
     && rm -rf /tmp/*.tgz
 RUN mkdir -p /opt/ssl /opt/logstash/config/conf.d 
 
