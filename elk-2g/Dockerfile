@@ -13,7 +13,7 @@ ENV KIBANA_URL   https://artifacts.elastic.co/downloads/kibana/kibana-$ELK_VERSI
 
 RUN apk update \
     && apk upgrade \
-    && apk add nano curl bash sudo openssl libstdc++ \
+    && apk add nano curl bash sudo tzdata openssl libstdc++ \
     && cp -R /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  \
     && echo 'Asia/Shanghai' > /etc/timezone  \
     && echo '%elk ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
