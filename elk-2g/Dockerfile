@@ -1,8 +1,9 @@
 FROM aqzt/docker-alpine:oraclejdk8
 
 # adding elk username because elasticsearch can not run as root anymore
-RUN addgroup -g 1000 elk
-RUN adduser -G elk elk -D -h /opt
+RUN set -x ; \
+    addgroup -g 1000 elk ; \
+    adduser -G elk elk -D -h /opt
 
 # set env variables
 ENV ELK_VERSION  5.6.9
@@ -13,6 +14,8 @@ ENV KIBANA_URL   https://artifacts.elastic.co/downloads/kibana/kibana-$ELK_VERSI
 RUN apk update \
     && apk upgrade \
     && apk add nano curl bash sudo openssl libstdc++ \
+    && cp -R /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  \
+    && echo 'Asia/Shanghai' > /etc/timezone  \
     && echo '%elk ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
     && sed -i 's/dev\/random/dev\/urandom/g' /usr/lib/jvm/jre/jre/lib/security/java.security
 
