@@ -29,8 +29,8 @@ RUN curl -o /tmp/elastic.tgz $ELASTIC_URL \
     && tar -xzf /tmp/logstash.tgz -C /opt \
     && curl -o /tmp/kibana.tgz $KIBANA_URL \
     && tar -xzf /tmp/kibana.tgz -C /opt \
-    && curl -o /tmp/kibana-cn.tgz $KIBANA_CN_URL \
-    && unzip /tmp/kibana-cn.tgz \
+    && curl -o /tmp/kibana-cn.zip $KIBANA_CN_URL \
+    && unzip /tmp/kibana-cn.zip \
     && ln -s kibana-* kibana \
     && ln -s logstash-* logstash \
     && ln -s elasticsearch-* elasticsearch \
@@ -38,6 +38,7 @@ RUN curl -o /tmp/elastic.tgz $ELASTIC_URL \
     && echo 'server.host: "0.0.0.0"' >> /opt/kibana/config/kibana.yml \
     && sh /opt/kibana-cn-master/5.6.9/kibana-cn_cp.sh \
     && rm -rf /tmp/opt/kibana-cn-master \
+    && rm -rf /tmp/kibana-cn.zip \
     && rm -rf /tmp/*.tgz
 RUN mkdir -p /opt/ssl /opt/logstash/config/conf.d 
 
