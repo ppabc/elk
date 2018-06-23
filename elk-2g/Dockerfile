@@ -10,6 +10,7 @@ ENV ELK_VERSION  5.6.9
 ENV ELASTIC_URL  https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$ELK_VERSION.tar.gz
 ENV LOGSTASH_URL https://artifacts.elastic.co/downloads/logstash/logstash-$ELK_VERSION.tar.gz
 ENV KIBANA_URL   https://artifacts.elastic.co/downloads/kibana/kibana-$ELK_VERSION-linux-x86_64.tar.gz
+ENV KIBANA_CN_URL https://github.com/ppabc/kibana-cn/archive/master.zip
 
 RUN apk update \
     && apk upgrade \
@@ -28,11 +29,15 @@ RUN curl -o /tmp/elastic.tgz $ELASTIC_URL \
     && tar -xzf /tmp/logstash.tgz -C /opt \
     && curl -o /tmp/kibana.tgz $KIBANA_URL \
     && tar -xzf /tmp/kibana.tgz -C /opt \
+    && curl -o /tmp/kibana-cn.tgz $KIBANA_CN_URL \
+    && unzip /tmp/kibana-cn.tgz \
     && ln -s kibana-* kibana \
     && ln -s logstash-* logstash \
     && ln -s elasticsearch-* elasticsearch \
     && echo 'network.host: 0.0.0.0' >>  /opt/elasticsearch/config/elasticsearch.yml \
     && echo 'server.host: "0.0.0.0"' >> /opt/kibana/config/kibana.yml \
+    && sh /opt/kibana-cn-master/5.6.9/kibana-cn_cp.sh \
+    && rm -rf /tmp/opt/kibana-cn-master \
     && rm -rf /tmp/*.tgz
 RUN mkdir -p /opt/ssl /opt/logstash/config/conf.d 
 
