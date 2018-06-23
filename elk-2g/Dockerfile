@@ -29,7 +29,7 @@ RUN curl -o /tmp/elastic.tgz $ELASTIC_URL \
     && tar -xzf /tmp/logstash.tgz -C /opt \
     && curl -o /tmp/kibana.tgz $KIBANA_URL \
     && tar -xzf /tmp/kibana.tgz -C /opt \
-    && curl -o /tmp/kibana-cn.zip $KIBANA_CN_URL \
+    && wget -O /tmp/kibana-cn.zip $KIBANA_CN_URL \
     && unzip /tmp/kibana-cn.zip \
     && ln -s kibana-* kibana \
     && ln -s logstash-* logstash \
