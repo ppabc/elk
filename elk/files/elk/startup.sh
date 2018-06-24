@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "Starting elasticsearch"
 /opt/elasticsearch/bin/elasticsearch &
 sleep 10
